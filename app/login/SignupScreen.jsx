@@ -8,7 +8,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useRouter } from 'expo-router';
 import { auth } from '../../Config/FirebaseConfig';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { setLocalStorage } from '../../service/Storage';
 
 const SignupScreen = () => {
   const router = useRouter();
@@ -38,10 +39,19 @@ const SignupScreen = () => {
     }
 
     setLoading(true);
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      await updateProfile(user, {
+        displayName: name,
+      });
+
       ToastAndroid.show('Account created successfully', ToastAndroid.BOTTOM);
-      router.push('(tabs)');
+
+      await setLocalStorage('userDetails', user); // Save user details if needed
+      router.push('/(tabs)'); // Navigate to tabs
     } catch (error) {
       console.log('Signup error:', error);
       if (error.code === 'auth/email-already-in-use') {
@@ -181,3 +191,4 @@ const styles = StyleSheet.create({
 });
 
 export default SignupScreen;
+

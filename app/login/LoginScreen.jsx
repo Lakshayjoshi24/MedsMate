@@ -7,13 +7,14 @@ import {
   Text,
   TextInput,
   Alert,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { useRouter } from 'expo-router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../Config/FirebaseConfig'; // ✅ Ensure correct path
+import { auth } from '../../Config/FirebaseConfig'; // ✅ Correct path to Firebase config
+import { setLocalStorage } from '../../service/Storage'; // ✅ Make sure this works with AsyncStorage
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -22,36 +23,43 @@ const LoginScreen = () => {
   const router = useRouter();
 
   const onLoginClick = async () => {
-    if (!email || !password) {
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+
+    if (!trimmedEmail || !trimmedPassword) {
       Alert.alert("Error", "Please enter email and password");
       return;
     }
 
+    console.log("Login attempt with email:", trimmedEmail);
+
     setLoading(true);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      console.log("Login successful!", userCredential.user);
-      
-      // Redirect to the tab navigator
-      router.replace('/(tabs)');
+      const userCredential = await signInWithEmailAndPassword(auth, trimmedEmail, trimmedPassword);
+      const user = userCredential.user;
+      console.log("Login successful!", user);
+
+      await setLocalStorage('userDetails', user); // ✅ Save user locally for session persistence
+
+      router.replace('/(tabs)'); // ✅ Redirect to tab navigator
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Login error:", error.code, error.message);
 
       switch (error.code) {
         case "auth/invalid-credential":
         case "auth/user-not-found":
         case "auth/wrong-password":
-          Alert.alert("Error", "Invalid email or password");
+          Alert.alert("Login Failed", "Invalid email or password");
           break;
         case "auth/invalid-email":
-          Alert.alert("Error", "Invalid email format");
+          Alert.alert("Login Failed", "Email format is incorrect");
           break;
         case "auth/too-many-requests":
-          Alert.alert("Error", "Too many attempts. Try again later");
+          Alert.alert("Login Failed", "Too many attempts. Try again later");
           break;
         default:
-          Alert.alert("Error", "Login failed. Please try again");
+          Alert.alert("Login Failed", "Something went wrong. Try again");
       }
     } finally {
       setLoading(false);
@@ -199,3 +207,4 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+

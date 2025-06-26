@@ -2,6 +2,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // ✅ Your Firebase config object
 const firebaseConfig = {
@@ -23,3 +24,4 @@ const auth = getAuth(app);
 // ✅ Correctly export
 export { auth };
 
+export const db=getFirestore(app);

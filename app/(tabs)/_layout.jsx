@@ -1,15 +1,30 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
+import { View, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { Tabs, useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { auth } from '../../Config/FirebaseConfig';
+import { getLocalStorage } from '../../service/Storage';
 
 export default function TabLayout() {
+  const router = useRouter();
+
+  useEffect(() => {
+    GetUserDetail();
+  }, []);
+
+  const GetUserDetail = async () => {
+    const userInfo = await getLocalStorage('userDetails'); // ✅ make sure this matches how you stored it
+    if (!userInfo) {
+      router.replace('/login/WelcomeScreen'); // ✅ adjust route to your actual login screen path
+    }
+  };
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#007AFF',   // iOS blue for active icon
-        tabBarInactiveTintColor: '#8e8e93', // iOS gray for inactive
+        tabBarActiveTintColor: '#007AFF',
+        tabBarInactiveTintColor: '#8e8e93',
         tabBarStyle: {
           backgroundColor: '#f9f9f9',
           borderTopWidth: 1,
@@ -27,7 +42,7 @@ export default function TabLayout() {
         name="index"
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color }) => (
             <FontAwesome name="home" size={24} color={color} />
           ),
         }}
@@ -36,7 +51,7 @@ export default function TabLayout() {
         name="AddNew"
         options={{
           tabBarLabel: "Add",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color }) => (
             <FontAwesome name="plus-square-o" size={24} color={color} />
           ),
         }}
@@ -45,7 +60,7 @@ export default function TabLayout() {
         name="Profile"
         options={{
           tabBarLabel: "Profile",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color }) => (
             <FontAwesome name="user" size={24} color={color} />
           ),
         }}
@@ -53,3 +68,4 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+

@@ -15,7 +15,7 @@ export default function WelcomeScreen() {
         <Image source={require('../../assets/images/Login.png')} style={styles.image} />
       </View>
       <View style={styles.subtitleContainer}>
-        <Text style={styles.subtitle}>Get appointments on your fingertips.</Text>
+        <Text style={styles.subtitle}>Always on track, Always healthy!</Text>
       </View>
       <TouchableOpacity
         style={styles.signupButton}
