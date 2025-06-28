@@ -4,9 +4,20 @@ import { Tabs, useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { auth } from '../../Config/FirebaseConfig';
 import { getLocalStorage } from '../../service/Storage';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function TabLayout() {
   const router = useRouter();
+
+  // onAuthStateChanged(auth,(user)=>{
+  //   if(user){
+  //     const uid=user.uid;
+  //     console.log(uid);
+  //     setAuthenticated(true);
+  //   }else{
+  //     setAuthenticated(false);
+  //   }
+  // })
 
   useEffect(() => {
     GetUserDetail();

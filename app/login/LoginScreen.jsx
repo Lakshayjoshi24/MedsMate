@@ -37,12 +37,14 @@ const LoginScreen = () => {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, trimmedEmail, trimmedPassword);
-      const user = userCredential.user;
-      console.log("Login successful!", user);
+const user = userCredential.user;
+console.log("Login successful!", user);
 
-      await setLocalStorage('userDetails', user); // ✅ Save user locally for session persistence
+// ✅ Save only the email in correct key
+await setLocalStorage('userDetail', { email: user.email });
 
-      router.replace('/(tabs)'); // ✅ Redirect to tab navigator
+router.replace('/(tabs)');
+ // ✅ Redirect to tab navigator
     } catch (error) {
       console.error("Login error:", error.code, error.message);
 

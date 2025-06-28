@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
 import { signOut, onAuthStateChanged, getAuth } from 'firebase/auth';
 import { useRouter } from 'expo-router';
 import Header from '../../components/Header';
 import Emptystate from '../../components/Emptystate';
+import MedicationList from '../../components/MedicationList';
 
 export default function HomeScreen() {
   const auth = getAuth();
@@ -30,14 +31,22 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={{
+    <FlatList style={{ flex: 1, backgroundColor: 'white' }}
+    data={[]}
+    ListHeaderComponent={
+      <View style={{
       padding:25,
       backgroundColor:'white',
       height:'100%'
     }}>
       <Header/>
-      <Emptystate/>
+      {/* <Emptystate/> */}
+
+      <MedicationList/>
     </View>
+
+    }
+   />
   );
 }
 

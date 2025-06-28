@@ -7,13 +7,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.container}>
       <SafeAreaProvider>
-        <Stack
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="login" />
+          {/* ❌ REMOVE THIS LINE: <Stack.Screen name="login" /> */}
         </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>
