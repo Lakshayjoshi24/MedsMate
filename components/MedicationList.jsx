@@ -7,11 +7,14 @@ import { db, auth } from '../Config/FirebaseConfig';
 import { GetDateRangeToDisplay } from '../service/ConvertDateTime';
 import MedicationCardItem from './MedicationCardItem';
 import Emptystate from './Emptystate';
+import { useRouter } from 'expo-router';
 
 export default function MedicationList() {
   const [medList, setMedList] = useState([]);
   const [dateRange, setDateRange] = useState([]);
   const [selectedDate, setSelectedDate] = useState(moment().format('MM/DD/YYYY'));
+
+  const router=useRouter();
 
   useEffect(() => {
     GetDateRangeList();
@@ -110,7 +113,17 @@ export default function MedicationList() {
       {medList.length > 0 ? (
         <FlatList
           data={medList}
-          renderItem={({ item }) => <MedicationCardItem medicine={item} />}
+          renderItem={({ item }) => (
+        <TouchableOpacity onPress={()=>router.push({
+            pathname:'/action-modal',
+            params:{
+                ...item,
+                selectedDate:selectedDate
+            }
+        })}>
+          <MedicationCardItem medicine={item} selectedDate={selectedDate} />
+        </TouchableOpacity>
+        )}
           keyExtractor={(item, index) => index.toString()}
         />
       ) : (

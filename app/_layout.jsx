@@ -10,6 +10,11 @@ export default function RootLayout() {
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
           {/* ❌ REMOVE THIS LINE: <Stack.Screen name="login" /> */}
+          <Stack.Screen name='action-modal'
+          options={{
+            presentation:'modal'
+          }}
+          />
         </Stack>
       </SafeAreaProvider>
     </GestureHandlerRootView>

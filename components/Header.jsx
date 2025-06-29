@@ -27,7 +27,7 @@ export default function Header() {
         <Text style={styles.text}>Hello, {user?.displayName || 'User'} 👋</Text>
       </View>
       <TouchableOpacity onPress={() => router.push('/add-new-medication')}>
-  <Ionicons name="medkit-outline" size={24} color="black" />
+  <Ionicons name="medkit-outline" size={24} color="#009688" />
 </TouchableOpacity>
 
     </View>

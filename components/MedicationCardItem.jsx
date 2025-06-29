@@ -1,11 +1,23 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import moment from 'moment';
 
-export default function MedicationCardItem({ medicine }) {
+export default function MedicationCardItem({ medicine,selectedDate='' }) {
+    
+    const[status,setStatus]=useState();
   // Format reminder time (e.g., "19:00" -> "7:00 PM")
   const formattedTime = moment(medicine?.reminder, 'HH:mm').format('h:mm A');
+
+  useEffect(()=>{
+        CheckStatus();
+  },[medicine])
+
+  const CheckStatus=()=>{
+        const data=medicine?.action?.find((item)=>item.date==selectedDate);
+        console.log("--",data);
+        setStatus(data);
+  }
 
   return (
     <View style={styles.cardContainer}>
@@ -30,6 +42,16 @@ export default function MedicationCardItem({ medicine }) {
         <Ionicons name="timer-outline" size={20} color="#333" />
         <Text style={styles.timeText}>{formattedTime}</Text>
       </View>
+      {status?.date && (
+  <View style={styles.statusContainer}>
+    {status?.status === 'Taken' ? (
+      <Ionicons name="checkmark-circle" size={24} color="green" />
+    ) : status?.status === 'Missed' ? (
+      <Ionicons name="close-circle" size={24} color="red" />
+    ) : null}
+  </View>
+)}
+
     </View>
   );
 }
@@ -87,4 +109,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     color: '#000',
   },
+  statusContainer: {
+  position: 'absolute',
+  top: 5,
+  right: 5, // ✅ Added to move it to top-right
+  padding: 4,
+  backgroundColor: '#fff',
+  borderRadius: 20,
+}
+
 });
