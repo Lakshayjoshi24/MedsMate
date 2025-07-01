@@ -4,29 +4,18 @@ import { Tabs, useRouter } from 'expo-router';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { auth } from '../../Config/FirebaseConfig';
 import { getLocalStorage } from '../../service/Storage';
-import { onAuthStateChanged } from 'firebase/auth';
 
 export default function TabLayout() {
   const router = useRouter();
-
-  // onAuthStateChanged(auth,(user)=>{
-  //   if(user){
-  //     const uid=user.uid;
-  //     console.log(uid);
-  //     setAuthenticated(true);
-  //   }else{
-  //     setAuthenticated(false);
-  //   }
-  // })
 
   useEffect(() => {
     GetUserDetail();
   }, []);
 
   const GetUserDetail = async () => {
-    const userInfo = await getLocalStorage('userDetails'); // ✅ make sure this matches how you stored it
+    const userInfo = await getLocalStorage('userDetails');
     if (!userInfo) {
-      router.replace('/login/WelcomeScreen'); // ✅ adjust route to your actual login screen path
+      router.replace('/login/WelcomeScreen');
     }
   };
 
@@ -34,10 +23,10 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#007AFF',
-        tabBarInactiveTintColor: '#8e8e93',
+        tabBarActiveTintColor: '#009688',         // ✅ App theme primary color
+        tabBarInactiveTintColor: '#b0b0b0',        // ✅ Muted gray for inactive icons
         tabBarStyle: {
-          backgroundColor: '#f9f9f9',
+          backgroundColor: '#ffffff',
           borderTopWidth: 1,
           borderTopColor: '#ddd',
           height: 60,
@@ -46,7 +35,7 @@ export default function TabLayout() {
         tabBarLabelStyle: {
           fontSize: 12,
           marginBottom: 5,
-        }
+        },
       }}
     >
       <Tabs.Screen
@@ -59,11 +48,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="AddNew"
+        name="History"
         options={{
-          tabBarLabel: "Add",
+          tabBarLabel: "History",
           tabBarIcon: ({ color }) => (
-            <FontAwesome name="plus-square-o" size={24} color={color} />
+            <FontAwesome name="history" size={24} color={color} />
           ),
         }}
       />
@@ -79,4 +68,3 @@ export default function TabLayout() {
     </Tabs>
   );
 }
-

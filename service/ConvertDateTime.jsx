@@ -46,3 +46,21 @@ export const GetDateRangeToDisplay = () => {
 
   return dateList;
 };
+
+
+
+export const GetPrevDateRangeToDisplay = () => {
+  const dates = [];
+
+  for (let i = 0; i <= 7; i++) {
+    const date = moment().subtract(i, 'days');
+
+    dates.push({
+      date: date.format('DD'),
+      day: date.format('ddd'), // 'Mon', 'Tue', etc.
+      formattedDate: date.format('MM/DD/YYYY'),
+    });
+  }
+
+  return dates; // Optional: to show oldest -> newest
+};
