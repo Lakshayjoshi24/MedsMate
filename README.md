@@ -67,5 +67,6 @@ npm install
 
 ---
 
-## Made with ❤️ by Lakshay Joshi
+<p align="center"><sub>Made with ❤️ by Lakshay Joshi</sub></p>
+
 
