@@ -65,8 +65,5 @@ git clone https://github.com/Lakshayjoshi24/medsmate.git
 cd medsmate
 npm install
 
----
-
-<p align="center"><sub>Made with ❤️ by Lakshay Joshi</sub></p>
 
 
