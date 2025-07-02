@@ -42,11 +42,11 @@ MedsMate/
 
 | Welcome | Login | Signup |
 |--------|-------|--------|
-| ![](./assets/screenshots/welcome.png) | ![](./assets/screenshots/login.png) | ![](./assets/screenshots/signup.png) |
+| ![](./assets/screenshots/welcome.jpg) | ![](./assets/screenshots/login.jpg) | ![](./assets/screenshots/signup.jpg) |
 
 | Home | Add New | History (Taken) |
 |------|---------|-----------------|
-| ![](./assets/screenshots/home.png) | ![](./assets/screenshots/addnew.png) | ![](./assets/screenshots/history.png) |
+| ![](./assets/screenshots/home.jpg) | ![](./assets/screenshots/addnew.jpg) | ![](./assets/screenshots/history.jpg) |
 
 ---
 
