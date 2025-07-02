@@ -40,11 +40,11 @@ const LoginScreen = () => {
 const user = userCredential.user;
 console.log("Login successful!", user);
 
-// ✅ Save only the email in correct key
+
 await setLocalStorage('userDetail', { email: user.email });
 
 router.replace('/(tabs)');
- // ✅ Redirect to tab navigator
+ 
     } catch (error) {
       console.error("Login error:", error.code, error.message);
 

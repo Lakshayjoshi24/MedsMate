@@ -1,50 +1,68 @@
-# Welcome to your Expo app 👋
+# 💊 MedsMate
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+MedsMate is a simple and intuitive mobile app built using **React Native (Expo)** and **Firebase**, designed to help users track their daily medications. With a modern interface and useful features like reminders and history tracking, MedsMate ensures users never miss a dose.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Features
 
-   ```bash
-   npm install
-   ```
+- 🔐 **Firebase Authentication**
+- 💾 **Cloud Firestore** integration
+- ➕ Add, edit, and track medications
+- 🕒 View medication **history by date**
+- ✅ Track medication **status** (Taken / Missed)
+- 🧑‍💻 Profile screen & logout
+- 📆 Intuitive daily view using **moment.js**
+- 🔁 Persistent sessions using AsyncStorage
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 📂 Folder Structure
 
-In the output, you'll find options to open the app in a
+MedsMate/
+├── assets/
+│ └── images/
+├── config/
+│ └── FirebaseConfig.js
+├── Screens/
+│ ├── WelcomeScreen.jsx
+│ ├── LoginScreen.jsx
+│ └── SignupScreen.jsx
+├── Tabs/
+│ └── BottomTabs.jsx
+├── App.js
+├── README.md
+└── package.json
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 📸 Screenshots
 
-When you're ready, run:
+
+| Welcome | Login | Signup |
+|--------|-------|--------|
+| ![](./assets/screenshots/welcome.png) | ![](./assets/screenshots/login.png) | ![](./assets/screenshots/signup.png) |
+
+| Home | Add New | History (Taken) |
+|------|---------|-----------------|
+| ![](./assets/screenshots/home.png) | ![](./assets/screenshots/addnew.png) | ![](./assets/screenshots/history.png) |
+
+---
+
+## 🔧 Installation & Setup
+
+### 📌 Prerequisites
+
+- Node.js & npm
+- Expo CLI (`npm install -g expo-cli`)
+- Firebase project set up (Auth + Firestore)
+
+### 🛠️ Getting Started
 
 ```bash
-npm run reset-project
-```
+git clone https://github.com/Lakshayjoshi24/medsmate.git
+cd medsmate
+npm install
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Made with ❤️ by Lakshay Joshi

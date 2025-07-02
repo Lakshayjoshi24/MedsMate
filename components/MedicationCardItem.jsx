@@ -3,21 +3,26 @@ import React, { useEffect, useState } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import moment from 'moment';
 
-export default function MedicationCardItem({ medicine,selectedDate='' }) {
-    
-    const[status,setStatus]=useState();
+export default function MedicationCardItem({ medicine, selectedDate = '' }) {
+  const [status, setStatus] = useState();
+
   // Format reminder time (e.g., "19:00" -> "7:00 PM")
   const formattedTime = moment(medicine?.reminder, 'HH:mm').format('h:mm A');
 
-  useEffect(()=>{
-        CheckStatus();
-  },[medicine])
+  useEffect(() => {
+    checkStatus();
+  }, [medicine, selectedDate]);
 
-  const CheckStatus=()=>{
-        const data=medicine?.action?.find((item)=>item.date==selectedDate);
-        console.log("--",data);
-        setStatus(data);
-  }
+  const checkStatus = () => {
+    if (Array.isArray(medicine?.action)) {
+      const data = medicine.action.find((item) => item.date === selectedDate);
+      console.log('-- Status Found:', data);
+      setStatus(data);
+    } else {
+      console.warn('⚠️ medicine.action is not an array:', medicine?.action);
+      setStatus(null);
+    }
+  };
 
   return (
     <View style={styles.cardContainer}>
@@ -30,11 +35,13 @@ export default function MedicationCardItem({ medicine,selectedDate='' }) {
         />
       </View>
 
-      {/* Name + When + Dose */}
+      {/* Name, When, Dose */}
       <View style={styles.infoContainer}>
         <Text style={styles.nameText}>{medicine?.name}</Text>
         <Text style={styles.whenText}>{medicine?.when}</Text>
-        <Text style={styles.doseText}>{medicine?.dose} {medicine?.type?.name}</Text>
+        <Text style={styles.doseText}>
+          {medicine?.dose} {medicine?.type?.name}
+        </Text>
       </View>
 
       {/* Reminder Time */}
@@ -42,16 +49,17 @@ export default function MedicationCardItem({ medicine,selectedDate='' }) {
         <Ionicons name="timer-outline" size={20} color="#333" />
         <Text style={styles.timeText}>{formattedTime}</Text>
       </View>
-      {status?.date && (
-  <View style={styles.statusContainer}>
-    {status?.status === 'Taken' ? (
-      <Ionicons name="checkmark-circle" size={24} color="green" />
-    ) : status?.status === 'Missed' ? (
-      <Ionicons name="close-circle" size={24} color="red" />
-    ) : null}
-  </View>
-)}
 
+      {/* Status Icon */}
+      {status?.date && (
+        <View style={styles.statusContainer}>
+          {status?.status === 'Taken' ? (
+            <Ionicons name="checkmark-circle" size={24} color="green" />
+          ) : status?.status === 'Missed' ? (
+            <Ionicons name="close-circle" size={24} color="red" />
+          ) : null}
+        </View>
+      )}
     </View>
   );
 }
@@ -110,12 +118,11 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   statusContainer: {
-  position: 'absolute',
-  top: 5,
-  right: 5, // ✅ Added to move it to top-right
-  padding: 4,
-  backgroundColor: '#fff',
-  borderRadius: 20,
-}
-
+    position: 'absolute',
+    top: 5,
+    right: 5,
+    padding: 4,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+  },
 });
